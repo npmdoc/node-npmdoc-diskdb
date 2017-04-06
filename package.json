@@ -1,17 +1,40 @@
 {
-    "buildNpmdoc":"diskdb",
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "buildNpmdoc": "diskdb",
+    "description": "api documentation for [diskdb (v0.1.17)](http://arvindr21.github.io/diskDB) [![npm package](https://img.shields.io/npm/v/npmdoc-diskdb.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-diskdb) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-diskdb.svg)](https://travis-ci.org/npmdoc/node-npmdoc-diskdb)",
     "devDependencies": {
         "diskdb": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "name":"npmdoc-diskdb",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/npmdoc/node-npmdoc-diskdb",
+    "keywords": [
+        "documentation",
+        "diskdb"
+    ],
+    "license": "MIT",
+    "main": "lib.npmdoc_diskdb.js",
+    "name": "npmdoc-diskdb",
+    "nameAlias": "npmdoc_diskdb",
+    "nameOriginal": "npmdoc-diskdb",
+    "os": [
+        "darwin",
+        "linux"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/npmdoc/node-npmdoc-diskdb"
     },
     "scripts": {
-        "build-ci": "utility2 shReadmeTest build_ci.sh"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "(set -e; npm install \"kaizhu256/node-utility2#alpha\"; utility2 shDeployHeroku)",
+        "postinstall": "if [ -f npm_scripts.sh ]; then ./npm_scripts.sh postinstall; fi",
+        "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
+        "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
     "version": "0.0.1"
 }
