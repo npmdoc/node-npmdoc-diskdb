@@ -1,0 +1,548 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="http://arvindr21.github.io/diskDB"
+
+    >diskdb (v0.1.17)</a>
+</h1>
+<h4>A Lightweight Disk based JSON Database with a MongoDB like API</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.diskdb">module diskdb</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.connect">
+            function <span class="apidocSignatureSpan">diskdb.</span>connect
+            <span class="apidocSignatureSpan">(path, collections)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.loadCollections">
+            function <span class="apidocSignatureSpan">diskdb.</span>loadCollections
+            <span class="apidocSignatureSpan">(collections)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">diskdb.</span>util</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.diskdb.util">module diskdb.util</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.ObjectSearcher">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>ObjectSearcher
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.finder">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>finder
+            <span class="apidocSignatureSpan">(collection, query, multi)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.isValidPath">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>isValidPath
+            <span class="apidocSignatureSpan">(path)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.readFromFile">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>readFromFile
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.removeFile">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>removeFile
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.removeFiltered">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>removeFiltered
+            <span class="apidocSignatureSpan">(collection, query, multi)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.updateFiltered">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>updateFiltered
+            <span class="apidocSignatureSpan">(collection, query, data, multi)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.diskdb.util.writeToFile">
+            function <span class="apidocSignatureSpan">diskdb.util.</span>writeToFile
+            <span class="apidocSignatureSpan">(outputFilename, content)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.diskdb" id="apidoc.module.diskdb">module diskdb</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.connect" id="apidoc.element.diskdb.connect">
+        function <span class="apidocSignatureSpan">diskdb.</span>connect
+        <span class="apidocSignatureSpan">(path, collections)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (path, collections) {
+    if (util.isValidPath(path)) {
+        var _db = {};
+        _db.path = path;
+        this._db = _db;
+        console.log(s(&#x27;Successfully connected to : &#x27; + path));
+        if (collections) {
+            this.loadCollections(collections);
+        }
+    } else {
+        console.log(e(&#x27;The DB Path [&#x27; + path + &#x27;] does not seem to be valid. Recheck the path and try again&#x27;));
+        return false;
+    }
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Install the module locally :
+```bash
+$ npm install diskdb
+```
+
+```js
+var db = require(&#x27;diskdb&#x27;);
+db = db.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;/path/to/db-folder&#x27;, [&#x27;collection-name&#x27;]);
+// you can access the traditional JSON DB methods here
+```
+
+## Documentation
+### Connect to DB
+```js
+db.connect(pathToFolder, [&#x27;filename&#x27;]);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.loadCollections" id="apidoc.element.diskdb.loadCollections">
+        function <span class="apidocSignatureSpan">diskdb.</span>loadCollections
+        <span class="apidocSignatureSpan">(collections)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">loadCollections = function (collections) {
+    if (!this._db) {
+        console.log(e(&#x27;Initialize the DB before you add collections. Use : &#x27;, &#x27;db.connect(\&#x27;path-to-db\&#x27;);&#x27;));
+        return false;
+    }
+    if (typeof collections === &#x27;object&#x27; &#x26;&#x26; collections.length) {
+        for (var i = 0; i &#x3c; collections.length; i++) {
+            var p = path.join(this._db.path, (collections[i].indexOf(&#x27;.json&#x27;) &#x3e;= 0 ? collections[i] : collections[i] + &#x27;.json&#x27;));
+            if (!util.isValidPath(p)) {
+                util.writeToFile(p);
+            }
+            var _c = collections[i].replace(&#x27;.json&#x27;, &#x27;&#x27;);
+            this[_c] = new require(&#x27;./collection&#x27;)(this, _c);
+        }
+    } else {
+        console.log(e(&#x27;Invalid Collections Array.&#x27;, &#x27;Expected Format : &#x27;, &#x27;[\&#x27;collection1\&#x27;,\&#x27;collection2\&#x27;,\&#x27;collection3\&#x27;]&#x27;));
+    }
+    return this;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+### Load Collections
+Alternatively you can also load collections like
+
+```js
+var db = require(&#x27;diskdb&#x27;);
+// this
+db = db.connect(&#x27;/examples/db&#x27;);
+db.<span class="apidocCodeKeywordSpan">loadCollections</span>([&#x27;articles&#x27;]);
+//or
+db.connect(&#x27;/examples/db&#x27;);
+db.loadCollections([&#x27;articles&#x27;]);
+//or
+db.connect(&#x27;/examples/db&#x27;)
+  .loadCollections([&#x27;articles&#x27;]);
+//or
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.diskdb.util" id="apidoc.module.diskdb.util">module diskdb.util</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.ObjectSearcher" id="apidoc.element.diskdb.util.ObjectSearcher">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>ObjectSearcher
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ObjectSearcher = function () {
+    this.results = [];
+    this.objects = [];
+    this.resultIDS = {};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+coltn._f = path.join(db._db.path, (collectionName + &#x27;.json&#x27;));
+
+coltn.find = function(query) {
+    var collection = JSON.parse(util.readFromFile(this._f));
+    if (!query || Object.keys(query).length === 0) {
+        return collection;
+    } else {
+        var searcher = new util.<span class="apidocCodeKeywordSpan">ObjectSearcher</span>();
+        return searcher.findAllInObject(collection, query, true);
+    }
+};
+
+coltn.findOne = function(query) {
+    var collection = JSON.parse(util.readFromFile(this._f));
+    if (!query) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.finder" id="apidoc.element.diskdb.util.finder">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>finder
+        <span class="apidocSignatureSpan">(collection, query, multi)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">finder = function (collection, query, multi) {
+    var retCollection = [];
+    loop: for (var i = collection.length - 1; i &#x3e;= 0; i--) {
+        var c = collection[i];
+        for (var p in query) {
+            if (p in c &#x26;&#x26; c[p] == query[p]) {
+                retCollection.push(collection[i]);
+                if (!multi) {
+                    break loop;
+                }
+            }
+        }
+    }
+    return retCollection;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        return data;
+    }
+};
+
+coltn.update = function(query, data, options) {
+    var ret = {},
+        collection = JSON.parse(util.readFromFile(this._f)); // update
+    var records = util.<span class="apidocCodeKeywordSpan">finder</span>(collection, query, true);
+    if (records.length) {
+        if (options &#x26;&#x26; options.multi) {
+            collection = util.updateFiltered(collection, query, data, true);
+            ret.updated = records.length;
+            ret.inserted = 0;
+        } else {
+            collection = util.updateFiltered(collection, query, data, false);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.isValidPath" id="apidoc.element.diskdb.util.isValidPath">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>isValidPath
+        <span class="apidocSignatureSpan">(path)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isValidPath = function (path) {
+    return fs.existsSync(path);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.readFromFile" id="apidoc.element.diskdb.util.readFromFile">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>readFromFile
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">readFromFile = function (file) {
+    return fs.readFileSync(file, &#x27;utf-8&#x27;);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+module.exports = function(db, collectionName) {
+var coltn = {};
+coltn.collectionName = collectionName;
+coltn._f = path.join(db._db.path, (collectionName + &#x27;.json&#x27;));
+
+coltn.find = function(query) {
+    var collection = JSON.parse(util.<span class="apidocCodeKeywordSpan">readFromFile</span>(this._f));
+    if (!query || Object.keys(query).length === 0) {
+        return collection;
+    } else {
+        var searcher = new util.ObjectSearcher();
+        return searcher.findAllInObject(collection, query, true);
+    }
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.removeFile" id="apidoc.element.diskdb.util.removeFile">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>removeFile
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">removeFile = function (file) {
+    return fs.unlinkSync(file);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        if (typeof multi === &#x27;undefined&#x27;) {
+            multi = true;
+        }
+        collection = util.removeFiltered(collection, query, multi);
+
+        util.writeToFile(this._f, collection);
+    } else {
+        util.<span class="apidocCodeKeywordSpan">removeFile</span>(this._f);
+        delete db[collectionName];
+    }
+    return true;
+};
+
+coltn.count = function() {
+    return (JSON.parse(util.readFromFile(this._f))).length;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.removeFiltered" id="apidoc.element.diskdb.util.removeFiltered">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>removeFiltered
+        <span class="apidocSignatureSpan">(collection, query, multi)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">removeFiltered = function (collection, query, multi) {
+    // break 2 loops at once -  multi : false
+    loop: for (var i = collection.length - 1; i &#x3e;= 0; i--) {
+        var c = collection[i];
+        for (var p in query) {
+            if (p in c &#x26;&#x26; c[p] == query[p]) {
+                collection.splice(i, 1);
+                if (!multi) {
+                    break loop;
+                }
+            }
+        }
+    }
+    return collection;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    coltn.remove = function(query, multi) {
+if (query) {
+    var collection = JSON.parse(util.readFromFile(this._f));
+    if (typeof multi === &#x27;undefined&#x27;) {
+        multi = true;
+    }
+    collection = util.<span class="apidocCodeKeywordSpan">removeFiltered</span>(collection, query, multi);
+
+    util.writeToFile(this._f, collection);
+} else {
+    util.removeFile(this._f);
+    delete db[collectionName];
+}
+return true;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.updateFiltered" id="apidoc.element.diskdb.util.updateFiltered">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>updateFiltered
+        <span class="apidocSignatureSpan">(collection, query, data, multi)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">updateFiltered = function (collection, query, data, multi) {
+    // break 2 loops at once - multi : false
+    loop: for (var i = collection.length - 1; i &#x3e;= 0; i--) {
+        var c = collection[i];
+        for (var p in query) {
+            if (p in c &#x26;&#x26; c[p] == query[p]) {
+                collection[i] = merge(c, data);
+                if (!multi) {
+                    break loop;
+                }
+            }
+        }
+    }
+    return collection;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    coltn.update = function(query, data, options) {
+var ret = {},
+    collection = JSON.parse(util.readFromFile(this._f)); // update
+var records = util.finder(collection, query, true);
+if (records.length) {
+    if (options &#x26;&#x26; options.multi) {
+        collection = util.<span class="apidocCodeKeywordSpan">updateFiltered</span>(collection, query, data, true);
+        ret.updated = records.length;
+        ret.inserted = 0;
+    } else {
+        collection = util.updateFiltered(collection, query, data, false);
+        ret.updated = 1;
+        ret.inserted = 0;
+    }
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.diskdb.util.writeToFile" id="apidoc.element.diskdb.util.writeToFile">
+        function <span class="apidocSignatureSpan">diskdb.util.</span>writeToFile
+        <span class="apidocSignatureSpan">(outputFilename, content)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">writeToFile = function (outputFilename, content) {
+    if (!content) {
+        content = [];
+    }
+    fs.writeFileSync(outputFilename, JSON.stringify(content, null, 0));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    var retCollection = [];
+    for (var i = data.length - 1; i &#x3e;= 0; i--) {
+        var d = data[i];
+        d._id = uuid.v4().replace(/-/g, &#x27;&#x27;);
+        collection.push(d);
+        retCollection.push(d);
+    }
+    util.<span class="apidocCodeKeywordSpan">writeToFile</span>(this._f, collection);
+    return retCollection;
+} {
+    data._id = uuid.v4().replace(/-/g, &#x27;&#x27;);
+    collection.push(data);
+    util.writeToFile(this._f, collection);
+    return data;
+}
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>

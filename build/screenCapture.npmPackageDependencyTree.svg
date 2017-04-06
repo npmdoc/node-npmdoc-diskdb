@@ -1,0 +1,12 @@
+<svg height="142" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="142" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">└─┬ diskdb@0.1.17 </tspan>
+<tspan x="10" y="42">  ├─┬ chalk@0.4.0 </tspan>
+<tspan x="10" y="58">  │ ├── ansi-styles@1.0.0 </tspan>
+<tspan x="10" y="74">  │ ├── has-color@0.1.7 </tspan>
+<tspan x="10" y="90">  │ └── strip-ansi@0.1.1 </tspan>
+<tspan x="10" y="106">  ├── merge@1.2.0 </tspan>
+<tspan x="10" y="122">  └── node-uuid@1.4.8</tspan>
+</text>
+</svg>
